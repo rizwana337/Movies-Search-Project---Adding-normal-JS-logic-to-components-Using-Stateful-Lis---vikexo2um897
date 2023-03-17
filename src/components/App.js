@@ -43,7 +43,7 @@ const App = () => {
     return (
         <div id="main">
             <form id="form">
-                <input
+            <input
                     type="text"
                     onChange={handleChange}
                     value={inputValue}
