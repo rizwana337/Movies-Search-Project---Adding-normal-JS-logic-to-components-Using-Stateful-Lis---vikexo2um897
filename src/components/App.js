@@ -6,9 +6,39 @@ const App = () => {
     const [inputValue, setInputValue] = useState("");
     const [results, setResult] = useState(null);
 
-    function handleClick(e) {}
+    function handleClick(e) {
+        e.preventDefault();
+    const searchTerm = inputValue.toLowerCase();
+    const filteredMovies = movies.filter(
+      (movie) => movie.toLowerCase().includes(searchTerm)
+    );
+    setResult(filteredMovies);
+  }
 
-    function handleChange(e) {}
+    
+
+    function handleChange(event) { 
+
+        const latestInputeValue = event.target.value;
+        setInputValue(latestInputeValue);
+
+        if(latestInputeValue ==""){
+            setResult(null);
+            return;
+        };
+
+        const serachRegex = new RegExp(latestInputeValue,"i");
+
+
+        const searchFilteredMovies = movies.filter((movie)  => {
+            const doesMatchSearch = serachRegex.test(movie.title);
+            return doesMatchSearch;
+
+        });
+        setResult(searchFilteredMovies);
+
+
+    }
 
     return (
         <div id="main">
@@ -18,7 +48,7 @@ const App = () => {
                     onChange={handleChange}
                     value={inputValue}
                     id="movie-input"
-                ></input>
+                />
                 <button id="button" onClick={handleClick}>
                     Search
                 </button>
@@ -26,7 +56,7 @@ const App = () => {
             <div id="result">
                 {results &&
                     results.map((movie) => (
-                        <div className="movie">{movie}</div>
+                        <div className="movie" key = {movie.id}>{movie.title}</div>
                     ))}
             </div>
         </div>
